@@ -1,9 +1,3 @@
-
-
-export function Welcome() {
-  return (
-    <main>
-      main
-    </main>
-  );
-}
+export const Welcome = () => {
+  return <main>main</main>;
+};
