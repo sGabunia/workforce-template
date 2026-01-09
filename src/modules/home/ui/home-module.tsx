@@ -1,3 +1,6 @@
+import { useLoaderData } from 'react-router';
+
 export const HomeModule = () => {
-  return <p>Home Module</p>;
+  const invoices = useLoaderData<{ res: string }>();
+  return <p>Home Module{invoices.res}</p>;
 };
