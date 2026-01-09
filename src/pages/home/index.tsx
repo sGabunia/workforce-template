@@ -1,4 +1,4 @@
-import { HomeModule } from '~/modules/home/home-module';
+import { HomeModule } from '~/modules/home';
 
 export function meta() {
   return [{ title: 'home' }, { name: 'description', content: 'Welcome to React Router!' }];
