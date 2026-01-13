@@ -1,12 +1,6 @@
 import { Table } from 'master-components-react-ts';
 import { useState } from 'react';
-import {
-  useFetcher,
-  useLocation,
-  useNavigate,
-  useSearchParams,
-  useSubmit
-} from 'react-router';
+import { useFetcher, useLocation, useNavigate, useSearchParams, useSubmit } from 'react-router';
 
 import type { Meta, UserList } from '../types';
 
