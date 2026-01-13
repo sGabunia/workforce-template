@@ -1,7 +1,7 @@
 import { Popup } from 'master-components-react-ts';
 import { useState } from 'react';
 
-import { useNavigation } from '~/common/hooks/useNavigateWithParams';
+import { useNavigateWithState } from '~/common/hooks/useNavigateWithState';
 
 import type { Route } from './+types/users-edit';
 
@@ -13,7 +13,7 @@ export function clientLoader({ params }: Route.ClientLoaderArgs) {
 
 export default function UserEdit({ params }: Route.ComponentProps) {
   const [visible, setVisible] = useState(true);
-  const navigate = useNavigation();
+  const navigate = useNavigateWithState();
 
   const [count, setCount] = useState(0);
   return (
