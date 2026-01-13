@@ -8,12 +8,12 @@ export { usersLoader as clientLoader } from '~/modules/users';
 export { userDeleteAction as clientAction } from '~/modules/users';
 
 export default function Users({ loaderData }: Route.ComponentProps) {
-  const { users } = loaderData;
+  const { users, meta } = loaderData;
 
   return (
     <div>
-      <UsersList users={users} />
       <Link to='/'>home</Link>
+      <UsersList meta={meta} users={users} />
       <Outlet />
     </div>
   );
@@ -34,6 +34,7 @@ export function ErrorBoundary({ error }: Route.ErrorBoundaryProps) {
       <div>
         <p>The stack trace is: can not fetch users</p>
         <Link to='/'>Go back to home</Link>
+        <Link to='/users'>Go back to users</Link>
       </div>
     );
   } else {
