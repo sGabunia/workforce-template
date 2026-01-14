@@ -7,7 +7,8 @@ export default [
   route('about', 'pages/about/about.tsx'),
   route('activities', 'pages/activities/activities.tsx'),
   route('users', 'pages/users/users.tsx', [
-    route('edit/:id', 'pages/users/edit/users-edit.tsx'),
+    route('edit/:id', 'pages/users/edit/[id]/user-edit.tsx'),
+    route('delete/:id', 'pages/users/delete/[id]/user-delete.tsx'),
     route(':id', 'pages/users/[user-id]/user-id.tsx')
   ])
 ] satisfies RouteConfig;

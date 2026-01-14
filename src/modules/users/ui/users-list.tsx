@@ -1,27 +1,13 @@
 import { Table } from 'master-components-react-ts';
-import { useState } from 'react';
-import { useFetcher, useSearchParams, useSubmit } from 'react-router';
+import { useSubmit } from 'react-router';
 
-import { useNavigateWithState } from '~/common/hooks/useNavigateWithState';
+import { useEditTableData } from '~/common/hooks/useEditTableData';
+import { useTableSelection } from '~/common/hooks/useTableSelection';
 
 import type { Meta, UserList } from '../types';
 
-function useTableManagement() {
-  const fetcher = useFetcher();
+function useTablePagination() {
   const submit = useSubmit();
-  const navigate = useNavigateWithState();
-  const [searchParams] = useSearchParams();
-
-  const [selectedRows, setSelectedRows] = useState<any[]>([]);
-
-  const handleDelete = (id: number, intent: 'delete' | 'edit' = 'delete') => {
-    fetcher.submit(
-      { id, intent },
-      {
-        method: 'post'
-      }
-    );
-  };
 
   const handlePaginationChange = ({ page, limit }: { page: number; limit: number }) => {
     submit(
@@ -32,31 +18,16 @@ function useTableManagement() {
     );
   };
 
-  const handleEdit = ({ editBasePath, id }: { editBasePath: string; id: number }) => {
-    navigate(`${editBasePath}/${id}`, {
-      preventScrollReset: true
-    });
-  };
-
-  const handleSelectionChange = (rows: any[]) => {
-    setSelectedRows(rows);
-  };
-
   return {
-    fetcherData: fetcher.data,
-    fetcherState: fetcher.state,
-    searchParams,
-    selectedRows,
-    handleSelectionChange,
-    handleDelete,
-    handlePaginationChange,
-    handleEdit
+    handlePaginationChange
   };
 }
 
 export function Users({ users, meta }: { users: UserList; meta: Meta }) {
-  const { selectedRows, handleSelectionChange, handleDelete, handlePaginationChange, handleEdit } =
-    useTableManagement();
+  const { handlePaginationChange } = useTablePagination();
+  const { handleEdit } = useEditTableData({ editBasePath: '/users/edit' });
+  const { handleEdit: deleteRecord } = useEditTableData({ editBasePath: '/users/delete' });
+  const { selectedRows, handleSelectionChange } = useTableSelection();
 
   return (
     <div>
@@ -99,11 +70,11 @@ export function Users({ users, meta }: { users: UserList; meta: Meta }) {
         onSelectionChange={handleSelectionChange}
         paginationType='numbered'
         rowActions={[
-          { text: 'Delete', onClick: (row) => handleDelete(row.id) },
+          { text: 'Delete', onClick: (row) => deleteRecord(row.id) },
           {
             text: 'Edit',
             onClick(row) {
-              handleEdit({ editBasePath: '/users/edit', id: row.id });
+              handleEdit(row.id);
             }
           }
         ]}
