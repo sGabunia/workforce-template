@@ -1,15 +1,16 @@
 import { Table } from 'master-components-react-ts';
 import { useState } from 'react';
-import { useFetcher, useLocation, useNavigate, useSearchParams, useSubmit } from 'react-router';
+import { useFetcher, useSearchParams, useSubmit } from 'react-router';
+
+import { useNavigateWithState } from '~/common/hooks/useNavigateWithState';
 
 import type { Meta, UserList } from '../types';
 
 function useTableManagement() {
   const fetcher = useFetcher();
   const submit = useSubmit();
-  const navigate = useNavigate();
+  const navigate = useNavigateWithState();
   const [searchParams] = useSearchParams();
-  const searchQuery = useLocation().search;
 
   const [selectedRows, setSelectedRows] = useState<any[]>([]);
 
@@ -32,7 +33,7 @@ function useTableManagement() {
   };
 
   const handleEdit = ({ editBasePath, id }: { editBasePath: string; id: number }) => {
-    navigate(`${editBasePath}/${id}${searchQuery}`, {
+    navigate(`${editBasePath}/${id}`, {
       preventScrollReset: true
     });
   };
@@ -45,7 +46,6 @@ function useTableManagement() {
     fetcherData: fetcher.data,
     fetcherState: fetcher.state,
     searchParams,
-    searchQuery,
     selectedRows,
     handleSelectionChange,
     handleDelete,
