@@ -331,8 +331,8 @@ class Fetches {
         ...this.headers,
         ...(body &&
           !(body instanceof FormData || body instanceof Blob || typeof body === 'string') && {
-          'content-type': 'application/json'
-        }),
+            'content-type': 'application/json'
+          }),
         ...(!!options?.headers && options.headers)
       }
     };
