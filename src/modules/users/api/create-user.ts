@@ -26,16 +26,7 @@ const createUser = async (userData: CreateUserDto) => {
 export async function userCreateAction({ request }: Route.ClientActionArgs) {
   const formData = await request.formData();
 
-  const userData: CreateUserDto = {
-    name: formData.get('name') as string,
-    user: formData.get('user') as string,
-    role: formData.get('role') as string,
-    group: formData.get('group') as string,
-    shift: formData.get('shift') as string,
-    status: formData.get('status') as string
-  };
-
-  await createUser(userData);
+  await createUser(Object.fromEntries(formData) as unknown as CreateUserDto);
 
   invalidateCache(['users']);
 
