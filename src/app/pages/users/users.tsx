@@ -5,6 +5,7 @@ import { Users as UsersList } from '~/modules/users';
 import type { Route } from './+types/users';
 
 export { usersLoader as clientLoader } from '~/modules/users';
+export { userCreateAction as clientAction } from '~/modules/users';
 
 export default function Users({ loaderData }: Route.ComponentProps) {
   const { users, meta } = loaderData;

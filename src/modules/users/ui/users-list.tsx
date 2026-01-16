@@ -1,10 +1,13 @@
 import { Table } from 'master-components-react-ts';
+import { useState } from 'react';
 import { useSubmit } from 'react-router';
 
 import { useEditTableData } from '~/common/hooks/useEditTableData';
 import { useTableSelection } from '~/common/hooks/useTableSelection';
 
 import type { Meta, UserList } from '../types';
+
+import { UserCreate } from './user-create';
 
 function useTablePagination() {
   const submit = useSubmit();
@@ -24,6 +27,7 @@ function useTablePagination() {
 }
 
 export function Users({ users, meta }: { users: UserList; meta: Meta }) {
+  const [limit, setLimit] = useState(5);
   const { handlePaginationChange } = useTablePagination();
   const { handleEdit } = useEditTableData({ editBasePath: '/users/edit' });
   const { handleEdit: deleteRecord } = useEditTableData({ editBasePath: '/users/delete' });
@@ -32,8 +36,9 @@ export function Users({ users, meta }: { users: UserList; meta: Meta }) {
   return (
     <div>
       users
+      <UserCreate />
       <Table
-        currentPage={meta.current_page - 1}
+        currentPage={meta.current - 1}
         data={users}
         uniqueKey='id'
         withSelectAll={true}
@@ -45,26 +50,36 @@ export function Users({ users, meta }: { users: UserList; meta: Meta }) {
             visible: true
           },
           {
-            key: 'name',
-            label: 'Name',
-            sortable: true,
-            visible: true
-          },
-          {
-            key: 'year',
-            label: 'Year',
+            key: 'user',
+            label: 'User',
             sortable: true
           },
           {
-            key: 'price',
-            label: 'Price',
+            key: 'role',
+            label: 'Role',
+            sortable: true
+          },
+          {
+            key: 'group',
+            label: 'User group',
+            sortable: true
+          },
+          {
+            key: 'shift',
+            label: 'Shift bag',
+            sortable: true
+          },
+          {
+            key: 'status',
+            label: 'Status',
             sortable: true
           }
         ]}
         onPageChange={(page) => {
-          handlePaginationChange({ page: page + 1, limit: meta.per_page });
+          handlePaginationChange({ page: page + 1, limit });
         }}
         onRowsPerPageChange={(limit) => {
+          setLimit(limit);
           handlePaginationChange({ page: 1, limit });
         }}
         onSelectionChange={handleSelectionChange}
@@ -78,12 +93,12 @@ export function Users({ users, meta }: { users: UserList; meta: Meta }) {
             }
           }
         ]}
-        rowsPerPage={meta.per_page}
+        rowsPerPage={limit}
         rowsPerPageOptions={[5, 10, 15]}
         selectedRows={selectedRows}
         showPagination={true}
-        totalItems={meta.total_items}
-        totalPages={meta.total_pages}
+        totalItems={meta.count}
+        totalPages={meta.pages}
         withActions={true}
         withColumnConfiguration={true}
         withSortIcons={false}

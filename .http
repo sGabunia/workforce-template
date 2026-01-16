@@ -1,0 +1,67 @@
+@baseUrl = http://localhost:31299/api
+
+### Get all users
+GET {{baseUrl}}/users
+
+### Get users with pagination
+GET {{baseUrl}}/users?page=1&limit=10
+
+### Get users - page 2
+GET {{baseUrl}}/users?_page=2&_limit=10
+
+### Get single user by ID
+GET {{baseUrl}}/users/15
+
+### Get user #5
+GET {{baseUrl}}/users/5
+
+### Create new user
+POST {{baseUrl}}/users
+Content-Type: application/json
+
+{
+  "name": "New User7777",
+  "user": "newuser",
+  "role": "Employee",
+  "group": "Group 1",
+  "shift": "Morning",
+  "status": "Active",
+  "year": 2024,
+  "price": "500.00"
+}
+
+### Update user
+PUT {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "name": "Updated User Name",
+  "role": "Manager",
+  "status": "Active"
+}
+
+### Patch user (partial update)
+PATCH {{baseUrl}}/users/1
+Content-Type: application/json
+
+{
+  "status": "Inactive"
+}
+
+### Delete user
+DELETE {{baseUrl}}/users/6
+
+### Delete user #50
+DELETE {{baseUrl}}/users/50
+
+### Filter users by role
+GET {{baseUrl}}/users?role=Admin&status=Active
+
+### Filter users by status
+GET {{baseUrl}}/users?status=Active
+
+### Search users
+GET {{baseUrl}}/users?_q=77
+
+### Get users with custom limit
+GET {{baseUrl}}/users?_page=2&_limit=5

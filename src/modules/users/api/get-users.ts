@@ -8,10 +8,10 @@ import type { Meta, UserList } from '../types';
 const getUsers = async ({ page, limit }: { page: string; limit: string }) => {
   return await api
     .get<{
-      items: UserList;
-      meta: Meta;
+      results: UserList;
+      _link: Meta;
     }>('users', {
-      query: { page, limit }
+      query: { _page: page, _limit: limit }
     })
     .then((response) => response.data);
 };
@@ -29,7 +29,7 @@ export async function usersLoader({ request }: Route.ClientLoaderArgs) {
   });
 
   return {
-    users: result.items,
-    meta: result.meta
+    users: result.results,
+    meta: result._link
   };
 }
