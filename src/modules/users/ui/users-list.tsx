@@ -4,10 +4,9 @@ import { useSubmit } from 'react-router';
 
 import { useEditTableData } from '~/common/hooks/useEditTableData';
 import { useTableSelection } from '~/common/hooks/useTableSelection';
+import { Link } from '~/common/ui/Link';
 
 import type { Meta, UserList } from '../types';
-
-import { UserCreate } from './user-create';
 
 function useTablePagination() {
   const submit = useSubmit();
@@ -27,7 +26,7 @@ function useTablePagination() {
 }
 
 export function Users({ users, meta }: { users: UserList; meta: Meta }) {
-  const [limit, setLimit] = useState(5);
+  const [limit, setLimit] = useState(10);
   const { handlePaginationChange } = useTablePagination();
   const { handleEdit } = useEditTableData({ editBasePath: '/users/edit' });
   const { handleEdit: deleteRecord } = useEditTableData({ editBasePath: '/users/delete' });
@@ -36,7 +35,7 @@ export function Users({ users, meta }: { users: UserList; meta: Meta }) {
   return (
     <div>
       users
-      <UserCreate />
+      <Link to='/users/new'>Create New User</Link>
       <Table
         currentPage={meta.current - 1}
         data={users}

@@ -5,7 +5,7 @@ import { useIsSubmitting } from '~/common/hooks/useIsSubmitting';
 import { useNavigateWithState } from '~/common/hooks/useNavigateWithState';
 import { useRouteModal } from '~/common/hooks/useRouteModal';
 
-export default function UserDelete() {
+export function UserDelete() {
   const navigate = useNavigateWithState();
   const { opened, handleClose } = useRouteModal({
     onClose: () => navigate('/users')

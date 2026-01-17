@@ -9,6 +9,6 @@ export default [
   route('users', 'pages/users/users.tsx', [
     route('edit/:id', 'pages/users/edit/[id]/user-edit.tsx'),
     route('delete/:id', 'pages/users/delete/[id]/user-delete.tsx'),
-    route(':id', 'pages/users/[user-id]/user-id.tsx')
+    route('new', 'pages/users/new/users-new.tsx')
   ])
 ] satisfies RouteConfig;

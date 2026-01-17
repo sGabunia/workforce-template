@@ -3,7 +3,7 @@ import type { Route } from '#types/users/delete/[id]/+types/user-delete';
 import { Center } from '@mantine/core';
 import { isRouteErrorResponse, Link } from 'react-router';
 
-import UserDelete from '~/modules/users/ui/user-delete';
+import { UserDelete } from '~/modules/users';
 
 export { userDeleteAction as clientAction } from '~/modules/users';
 export default function UserDeletePage() {

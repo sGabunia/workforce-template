@@ -4,6 +4,7 @@ import { redirect } from 'react-router';
 
 import { api } from '~/common/api/api-instance';
 import { invalidateCache } from '~/common/api/cache-client';
+import { getRedirectUrlWithParams } from '~/common/utils/redirect';
 
 interface CreateUserDto {
   group: string;
@@ -28,7 +29,9 @@ export async function userCreateAction({ request }: Route.ClientActionArgs) {
 
   await createUser(Object.fromEntries(formData) as unknown as CreateUserDto);
 
+  const redirectUrl = getRedirectUrlWithParams(request, '/users');
+
   invalidateCache(['users']);
 
-  throw redirect('/users');
+  throw redirect(redirectUrl);
 }

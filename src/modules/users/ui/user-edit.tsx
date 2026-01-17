@@ -4,7 +4,7 @@ import { Form } from 'react-router';
 import { useNavigateWithState } from '~/common/hooks/useNavigateWithState';
 import { useRouteModal } from '~/common/hooks/useRouteModal';
 
-export default function UserEdit() {
+export function UserEdit() {
   const navigate = useNavigateWithState();
   const { opened, handleClose } = useRouteModal({
     onClose: () => navigate('/users')

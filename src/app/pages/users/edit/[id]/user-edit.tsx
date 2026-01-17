@@ -1,4 +1,4 @@
-import UserEdit from '~/modules/users/ui/user-edit';
+import { UserEdit } from '~/modules/users';
 
 export default function UserEditPage() {
   return <UserEdit />;

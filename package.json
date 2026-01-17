@@ -10,7 +10,8 @@
     "prettier": "prettier --check \"**/*.{ts,tsx}\"",
     "prettier:write": "prettier --write \"**/*.{ts,tsx}\"",
     "lint": "eslint .",
-    "lint:fix": "eslint . --fix"
+    "lint:fix": "eslint . --fix",
+    "mock": "npx mock-config-server"
   },
   "dependencies": {
     "@mantine/core": "^8.3.12",
