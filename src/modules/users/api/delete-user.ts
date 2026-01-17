@@ -29,9 +29,9 @@ export async function userDeleteAction({ params, request }: Route.ClientActionAr
     queryFn: async () => {
       return await api
         .get<{
-          results: any[];
-          _link: { count: number };
-        }>('users', {
+        results: any[];
+        _link: { count: number };
+      }>('users', {
           query: { _page: page, _limit: limit }
         })
         .then((response) => response.data);

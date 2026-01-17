@@ -8,9 +8,9 @@ import type { Meta, UserList } from '../types';
 const getUsers = async ({ page, limit }: { page: string; limit: string }) => {
   return await api
     .get<{
-      results: UserList;
-      _link: Meta;
-    }>('users', {
+    results: UserList;
+    _link: Meta;
+  }>('users', {
       query: { _page: page, _limit: limit, _sort: 'id', _order: 'desc' }
     })
     .then((response) => response.data);
