@@ -11,7 +11,7 @@ const getUsers = async ({ page, limit }: { page: string; limit: string }) => {
       results: UserList;
       _link: Meta;
     }>('users', {
-      query: { _page: page, _limit: limit }
+      query: { _page: page, _limit: limit, _sort: 'id', _order: 'desc' }
     })
     .then((response) => response.data);
 };
