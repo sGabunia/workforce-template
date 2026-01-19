@@ -5,5 +5,5 @@ export default {
   // Server-side render by default, to enable SPA mode set this to `false`
   ssr: false,
   appDirectory: 'src/app',
-  basename: '/workforce-template/',
+  basename: '/workforce-template',
 } satisfies Config;
