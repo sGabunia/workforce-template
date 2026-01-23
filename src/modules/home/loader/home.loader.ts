@@ -6,8 +6,3 @@ export async function homeLoader({ request }: Route.LoaderArgs) {
     res: 'ok'
   };
 }
-
-export async function homeAction({ request }: Route.ActionArgs) {
-  const formData = await request.formData();
-  console.warn({ formData });
-}

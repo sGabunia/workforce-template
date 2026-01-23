@@ -1,43 +1,48 @@
 import { Button, Checkbox, Group, Select, TextInput } from '@mantine/core';
-import { useForm } from '@mantine/form';
 import { Form, Link, useFetcher } from 'react-router';
 
+import { useRouterForm } from '~/common/router-hook-form';
 import { HomeModule } from '~/modules/home';
 
 import type { Route } from './+types/home';
 
-export { homeAction as clientAction, homeLoader as clientLoader } from '~/modules/home';
+export { homeLoader as clientLoader } from '~/modules/home';
 
 export function meta() {
   return [{ title: 'home' }, { name: 'description', content: 'Welcome to React Router!' }];
 }
 
+export async function clientAction() {
+  const posts = await fetch('https://jsonplaceholder.typicode.com/posts');
+  const parsedPosts = await posts.json();
+  return {
+    name: parsedPosts
+  };
+}
+
 export default function Home({ loaderData }: Route.ComponentProps) {
-  const form = useForm({
+  const fetcher = useFetcher();
+  const fetcher2 = useFetcher();
+  const form = useRouterForm({
     mode: 'uncontrolled',
     initialValues: {
       email: '',
       termsOfService: false,
       selectOption: ''
     },
-
     validate: {
       email: (value) => (/^\S[^\s@]*@\S+$/.test(value) ? null : 'Invalid email'),
       selectOption: (value) => (value ? null : 'Select an option')
-    }
+    },
+    fetcher
   });
-  const submit = useFetcher();
 
   return (
     <div>
       <Link to='/users'>users</Link>
       {loaderData.res}
       <HomeModule />
-      <Form
-        onSubmit={form.onSubmit(async (values) => {
-          submit.submit(values, { method: 'post' });
-        })}
-      >
+      <fetcher.Form onSubmit={form.handleSubmit}>
         <TextInput
           withAsterisk
           key={form.key('email')}
@@ -66,8 +71,19 @@ export default function Home({ loaderData }: Route.ComponentProps) {
         />
 
         <Group justify='flex-end' mt='md'>
-          <Button type='submit'>Submit</Button>
+          <Button type='submit' loading={form.isSubmittingForm}>
+            Submit
+          </Button>
         </Group>
+      </fetcher.Form>
+      <fetcher2.Form method='post'>
+        <TextInput name='email' />
+        <Button type='submit'>submit</Button>
+      </fetcher2.Form>
+      <Form action='users'>
+        <Button name='page' type='submit' value='2'>
+          nav users
+        </Button>
       </Form>
     </div>
   );

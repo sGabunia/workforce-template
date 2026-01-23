@@ -1,6 +1,6 @@
 import type { Route } from '#types/users/delete/[id]/+types/user-delete';
 
-import { redirect } from 'react-router';
+import { replace } from 'react-router';
 
 import { api } from '~/common/api/api-instance';
 import { getCachedQuery, invalidateCache } from '~/common/api/cache-client';
@@ -22,6 +22,7 @@ export async function userDeleteAction({ params, request }: Route.ClientActionAr
   const url = new URL(request.url);
   const page = url.searchParams.get('page') ?? '1';
   const limit = url.searchParams.get('limit') ?? '10';
+  const q = url.searchParams.get('q') ?? undefined;
 
   // Fetch current table metadata
   const currentData = await getCachedQuery({
@@ -47,5 +48,9 @@ export async function userDeleteAction({ params, request }: Route.ClientActionAr
 
   invalidateCache(['users']);
 
-  throw redirect(redirectUrl);
+  if (q) {
+    throw replace('/users');
+  }
+
+  throw replace(redirectUrl);
 }

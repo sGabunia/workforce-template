@@ -6,6 +6,7 @@ export function UserCreateForm() {
   const submit = useSubmit();
 
   const form = useForm({
+    mode: 'uncontrolled',
     initialValues: {
       name: '',
       user: '',
